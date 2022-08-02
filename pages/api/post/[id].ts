@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { client } from "../../../utils/client";
 import { postDetailQuery } from "../../../utils/queries";
-
+import { uuid } from "uuidv4";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
     
@@ -15,9 +15,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(data[0]);
     }
     
-    if (req.method === 'POST') {
-        const user = req.body;
+    else if (req.method === 'PUT') {
+  
+            const { comment, userId } = req.body;
 
-        client.createIfNotExists(user).then(() => res.status(200).json('New User Created'));
+            const { id } : any = req.body;
+            
+            const data = await client.patch(id).setIfMissing({ comments: []})
+            .insert('after', 'comments[-1]', [
+                {
+                  comment,
+                  _key: uuid(),
+                  postedBy: { _type: 'postedBy', _ref: userId },
+                },
+              ])
+              .commit();
+
+              res.status(200).json(data);
+  
+        //      const user = req.body;
+
+//        client.createIfNotExists(user).then(() => res.status(200).json('New User Created'));
     }
 }
