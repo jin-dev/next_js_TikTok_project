@@ -44,7 +44,7 @@ const Detail = ({ postDetails} : IProps ) => {
 
   }
 
-  if(!post) return null;
+
 
 
   useEffect(() => {
@@ -53,6 +53,8 @@ const Detail = ({ postDetails} : IProps ) => {
     }
   }, [post, isVideoMuted])
 
+
+  if(!post) return null;
 
   const handleLikes = async (like: boolean) => {
     if (userProfile) {
