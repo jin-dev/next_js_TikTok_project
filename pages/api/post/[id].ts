@@ -16,25 +16,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     else if (req.method === 'PUT') {
+      const { comment, userId } = req.body;
   
-            const { comment, userId } = req.body;
-
-            const { id } : any = req.body;
-            
-            const data = await client.patch(id).setIfMissing({ comments: []})
-            .insert('after', 'comments[-1]', [
-                {
-                  comment,
-                  _key: uuid(),
-                  postedBy: { _type: 'postedBy', _ref: userId },
-                },
-              ])
-              .commit();
-
-              res.status(200).json(data);
+      const { id }: any = req.query;
   
-        //      const user = req.body;
-
-//        client.createIfNotExists(user).then(() => res.status(200).json('New User Created'));
+      const data = await client
+        .patch(id)
+        .setIfMissing({ comments: [] })
+        .insert('after', 'comments[-1]', [
+          {
+            comment,
+            _key: uuid(),
+            postedBy: { _type: 'postedBy', _ref: userId },
+          },
+        ])
+        .commit();
+  
+      res.status(200).json(data);
     }
 }

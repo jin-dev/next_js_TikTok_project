@@ -70,7 +70,7 @@ const Detail = ({ postDetails} : IProps ) => {
 
   const addComment = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+    console.log("add Comment API");
     if (userProfile) {
      
         setIsPostingComment(true);
