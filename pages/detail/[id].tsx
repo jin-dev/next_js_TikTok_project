@@ -17,7 +17,7 @@ export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 
 interface IProps {
-  postDetails : Video,
+  postDetails : any,
 }
 
 const Detail = ({ postDetails} : IProps ) => {
@@ -94,7 +94,7 @@ const Detail = ({ postDetails} : IProps ) => {
           <p className="cursor-pointer" onClick={() => router.back()}> <MdOutlineCancel className="text-white text-[35px]" /></p>
         </div>
         <div className="relative">
-          <div className="lg:h-[100vh] w-[60vh]">
+          <div className="lg:h-[100vh]">
             <video ref = {videoRef} loop onClick={onVideoClick} src={post?.video?.asset?.url} className="h-full cursor-pointer">
 
             </video>
@@ -130,35 +130,38 @@ const Detail = ({ postDetails} : IProps ) => {
       </div>
 
       <div className="relative w-[1000px] md:w-[900px] lg:w-[700px]" >
-                <div className="lg:mt-20 mt-10">
+                <div className="lg:mt-10">
 
 
                 <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
-      <div className="md:w-20 md:h-20 w-16 h-16 ml-4"></div>
+      <div className="md:w-20 md:h-20 w-16 h-16 ml-4">
       <Link href="/">
         <>
           <Image
           width={62}
           height={62}
           className="rounded-full"
-          src={post?.postedBy?.image}
+          src={post?.postedBy?.image }
           alt="profile photo"
           layout="responsive"
           />
         </>
       </Link>
 
+      </div>
+     
+
         </div>
 
         <div>
           <Link href="/">
-            <div className="mt-3 flex flex-col  gap-2">
-            <p className="flex gap-2 md:text-md font-bold text-primary">{post.postedBy?.userName}
+            <div className="mt-3 flex flex-col px-10  gap-2 " >
+            <p className="flex gap-2 md:text-md font-bold text-primary">{post.postedBy?.userName || post?.userName}
         <GoVerified className="text-blue-400 text-md" />
         </p>
 
         <p className="capitalize font-medium text-xs text-gray-500 hidden md:block">
-          {post.postedBy.userName}
+        {post.postedBy.userName}
         </p>
 
             </div>

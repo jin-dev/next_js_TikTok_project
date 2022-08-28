@@ -22,7 +22,7 @@ const Home = ({ videos } : IProps) => {
         videos.map((video: Video) => (
           <VideoCard post={video} key={video?._id} />
         ))
-        ) : ( <NoResults text={"HAHA"}/>
+        ) : ( <NoResults text={"There is no Result"}/>
       )}
     </div>
   )
